@@ -14,6 +14,9 @@ npm create svelte@latest chat-app3
 Svelte App Template: Skeleton Project
 Type Checking: Typescript Syntax
 Optional: Eslint
+
+# npm install to root
+npm install
 ```
 
 ## Install Dependencies
@@ -45,7 +48,7 @@ PUSHER_CLUSTER=ap1
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start two or more separate terminal and run the following:
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start two or more separate terminal and run the following to emulate multiple chat users:
 
 ```bash
 npm run dev
