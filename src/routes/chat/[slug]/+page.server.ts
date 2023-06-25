@@ -5,6 +5,7 @@ import { redirect } from '@sveltejs/kit'
 import Pusher from 'pusher'
 import { PUSHER_APPID, PUSHER_CLUSTER, PUSHER_SECRET } from '$env/static/private'
 import { PUBLIC_PUSHER_KEY } from '$env/static/public'
+import bcrypt from 'bcryptjs'
 
 const pusher = new Pusher({
     appId: PUSHER_APPID,

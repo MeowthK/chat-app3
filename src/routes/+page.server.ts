@@ -4,6 +4,7 @@ import { Code } from '../types/error-code'
 import { redirect } from '@sveltejs/kit'
 import bcrypt from 'bcryptjs'
 import user from '../user'
+import { hash } from '../helpers/hash-unhash'
 
 export async function load({}) {
     user.set(null)
@@ -15,7 +16,7 @@ export const actions = {
         const fData = await request.formData()
         const username = fData.get('username')
         const salt = await bcrypt.genSalt(10)
-        const password = await bcrypt.hash(fData.get('password'), salt)
+        const password = await hash(fData.get('password') as string, salt)
         const x = fData.get('avatar-coordx')
         const y = fData.get('avatar-coordy')
 

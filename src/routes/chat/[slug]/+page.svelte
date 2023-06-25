@@ -6,13 +6,23 @@
     import Pusher from 'pusher-js'
     import { PUBLIC_PUSHER_KEY } from "$env/static/public"
     import image from "./../../../resources/avatar.png"
-    import user from "../../../user";
 
     export let data
 
     let avatarCoord = { x: 0, y: 0 }
 
     const updateImage = () => {
+
+        const found = users.filter(u => u.username === recipient && u.avatar)
+
+        if (found) {
+
+            const f_user = found[0]
+
+            avatarCoord.x = f_user.avatar.x
+            avatarCoord.y = f_user.avatar.y
+        }
+
         let img = new Image()
         
         img.onload = () => {
@@ -49,17 +59,7 @@
     }
 
     onMount(() => {
-
-        const found = users.filter(u => u.username === sender && u.avatar)
-
-        if (found) {
-
-            const f_user = found[0]
-
-            avatarCoord.x = f_user.avatar.x
-            avatarCoord.y = f_user.avatar.y
-        }
-
+        
         updateImage()
 
         Pusher.logToConsole = true;
@@ -101,6 +101,11 @@
         }
     }
 
+    const changeRecipient = ({detail}) => {
+        recipient = detail
+        updateImage()
+    }
+
     const logout = async () => {
         await fetch('?/logout',{method: 'POST', body: ''})
         location.assign('/')
@@ -138,7 +143,7 @@
                     <div class="col d-flex flex-column sidebar full-height scrollable">
                         {#each users as contact}
                             {#if contact.username.toLowerCase().includes(searchFilter.toLowerCase())}
-                                <Contact on:click={({detail}) => recipient = detail} username={contact.username} />
+                                <Contact on:click={changeRecipient} username={contact.username} />
                             {/if}
                         {/each}
                     </div>
